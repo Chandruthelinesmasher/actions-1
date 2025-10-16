@@ -14,19 +14,18 @@ jobs:
 
       - name: Execute Cowsay CMD
         run: cowsay -f dragon "Run for cover, I am a DRAGON...RAWR" >> dragon.txt
-      - name: Upload dragon.txt as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dragon-file
-          path: dragon.txt
+
+      - name: List Files
+        run: ls -ltra
 
   test_job_2:
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dragon-file
+      - name: Install Cowsay Program
+        run: sudo apt-get install cowsay -y
+
+      - name: Execute Cowsay CMD
+        run: cowsay -f dragon "Testing dragon presence..." >> dragon.txt
 
       - name: Sleep for 10 seconds
         run: sleep 10
@@ -37,10 +36,11 @@ jobs:
   deploy_job_3:
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dragon-file
+      - name: Install Cowsay Program
+        run: sudo apt-get install cowsay -y
+
+      - name: Execute Cowsay CMD
+        run: cowsay -f dragon "Deploying dragon power..." >> dragon.txt
 
       - name: Read File
         run: cat dragon.txt
